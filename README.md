@@ -35,3 +35,7 @@ Flowcharts
  I should not have to come out of pocket while providing such work for my company
  
  I should be refunded all money I spend from personal accounts directly related to company work
+
+<br>
+![](./imgs/ULTRAS-SIG3.gif)
+<br>
