@@ -36,6 +36,7 @@ Flowcharts
  
  I should be refunded all money I spend from personal accounts directly related to company work
 
+**footer**
 <br>
-![](./imgs/ULTRAS-SIG3.gif )
+![](./imgs/ULTRAS-SIG3.gif)
 <br>
