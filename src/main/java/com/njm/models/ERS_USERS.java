@@ -6,6 +6,9 @@ public class ERS_USERS {
 	private String ERS_USERNAME;
 	private String ERS_PASSWORD;
 	private String USER_FIRST_NAME;
+	private String USER_LAST_NAME;
+	private String USER_EMAIL;
+	private int USER_ROLE_ID;
 
 	public int getERS_USERS_ID() {
 		return ERS_USERS_ID;
@@ -87,10 +90,6 @@ public class ERS_USERS {
 	public void setUSER_ROLE_ID(int uSER_ROLE_ID) {
 		USER_ROLE_ID = uSER_ROLE_ID;
 	}
-
-	private String USER_LAST_NAME;
-	private String USER_EMAIL;
-	private int USER_ROLE_ID;
 
 	public ERS_USERS() {
 		super();
