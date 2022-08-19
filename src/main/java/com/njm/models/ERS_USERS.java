@@ -10,9 +10,17 @@ public class ERS_USERS {
 	private String USER_EMAIL;
 	private int USER_ROLE_ID;
 
-	public int getERS_USERS_ID() {
-		return ERS_USERS_ID;
+
+	public ERS_USERS(String eRS_USERNAME, String eRS_PASSWORD, String uSER_FIRST_NAME, String uSER_LAST_NAME,
+			String uSER_EMAIL) {
+		super();
+		ERS_USERNAME = eRS_USERNAME;
+		ERS_PASSWORD = eRS_PASSWORD;
+		USER_FIRST_NAME = uSER_FIRST_NAME;
+		USER_LAST_NAME = uSER_LAST_NAME;
+		USER_EMAIL = uSER_EMAIL;
 	}
+
 
 	public ERS_USERS(int eRS_USERS_ID, String eRS_USERNAME, String eRS_PASSWORD, String uSER_FIRST_NAME,
 			String uSER_LAST_NAME, String uSER_EMAIL, int uSER_ROLE_ID) {
@@ -39,6 +47,10 @@ public class ERS_USERS {
 		USER_ROLE_ID = uSER_ROLE_ID;
 	}
 
+	public int getERS_USERS_ID() {
+		return ERS_USERS_ID;
+	}
+	
 	public void setERS_USERS_ID(int eRS_USERS_ID) {
 		ERS_USERS_ID = eRS_USERS_ID;
 	}
@@ -96,6 +108,7 @@ public class ERS_USERS {
 		// TODO Auto-generated constructor stub
 
 	}
+
 
 	@Override
 	public String toString() {
