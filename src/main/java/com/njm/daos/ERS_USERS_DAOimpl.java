@@ -38,15 +38,16 @@ public class ERS_USERS_DAOimpl implements ERS_USERS_DAO {
 		int targetId = 0;
 
 		try (Connection conn = ERS_JDBC_CONNECTION_UTIL.establishComms()) {
-			String sql = "insert into ers_users (ers_users_id, ers_password, user_first_name, user_last_name, user_role_id, ers_username, user_email) VALUES (default,?,?,?,?,?,?)";
+			String sql = "insert into ers_users (ers_user_id, ers_username,ers_password,user_first_name,user_last_name,user_email,user_role_id ) VALUES (default,?,?,?,?,?,?)";
 
 			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			ps.setString(1, ERS_USERS.getERS_PASSWORD());
-			ps.setString(2, ERS_USERS.getUSER_FIRST_NAME());
-			ps.setString(3, ERS_USERS.getUSER_LAST_NAME());
-			ps.setInt(4, ERS_USERS.getUSER_ROLE_ID());
-			ps.setString(5, ERS_USERS.getERS_USERNAME());
-			ps.setString(6, ERS_USERS.getUSER_EMAIL());
+//			ps.setInt(0, ERS_USERS.getERS_USERS_ID());
+			ps.setString(1, ERS_USERS.getERS_USERNAME());
+			ps.setString(2, ERS_USERS.getERS_PASSWORD());
+			ps.setString(3, ERS_USERS.getUSER_FIRST_NAME());
+			ps.setString(4, ERS_USERS.getUSER_LAST_NAME());
+			ps.setString(5, ERS_USERS.getUSER_EMAIL());
+			ps.setInt(6, ERS_USERS.getUSER_ROLE_ID());
 
 			int isSuccessfulInsert = ps.executeUpdate();
 			LOGGER.info("Successful registration [1 for yes/ 0 for no]: " + isSuccessfulInsert);
@@ -54,9 +55,8 @@ public class ERS_USERS_DAOimpl implements ERS_USERS_DAO {
 			// this will return the new ID number that was created by the DB
 			ResultSet rs = ps.getGeneratedKeys();
 
-			while (rs.next()) {
-				targetId = rs.getInt("ERS_USERS_ID");
-				rs.next();
+			if (rs.next()) {
+				targetId = rs.getInt("ers_user_id");
 			}
 		} catch (SQLException e) {
 			LOGGER.warn("Unable to execute SQL query: " + e);
@@ -72,7 +72,7 @@ public class ERS_USERS_DAOimpl implements ERS_USERS_DAO {
 
 		ERS_USERS user = new ERS_USERS();
 		try (Connection conn = ERS_JDBC_CONNECTION_UTIL.establishComms()) {
-			String sql = "select * from ers_users where ers_users_id = ?";
+			String sql = "select * from ers_users where ers_user_id = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(0, ERS_USERS_ID);
 

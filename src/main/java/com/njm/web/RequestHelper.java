@@ -99,17 +99,18 @@ public class RequestHelper {
 		resp.setContentType("application/json");
 		
 		//b. here is where we make the service method call
-		String ERS_PASSWORD = values.get(0);
-		String USER_FIRST_NAME = values.get(1);
-		String USER_LAST_NAME = values.get(2);
-		int USER_ROLE_ID = Integer.parseInt(values.get(3));
-		String ERS_USERNAME = values.get(4);
-		String USER_EMAIL = values.get(5);
+//		int ERS_USERS_ID = Integer.parseInt(values.get(1));
+		String ERS_USERNAME = values.get(0);
+		String ERS_PASSWORD = values.get(1);
+		String USER_FIRST_NAME = values.get(2);
+		String USER_LAST_NAME = values.get(3);
+		String USER_EMAIL = values.get(4);
+		int USER_ROLE_ID = Integer.parseInt(values.get(5));
 		
 //		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //		LocalDate hiredate = LocalDate.parse(values.get(2), formatter);
 		
-		ERS_USERS target = new ERS_USERS(USER_EMAIL, USER_EMAIL, USER_EMAIL, USER_EMAIL, USER_EMAIL, USER_ROLE_ID);
+		ERS_USERS target = new ERS_USERS( ERS_USERNAME, ERS_PASSWORD, USER_FIRST_NAME, USER_LAST_NAME, USER_EMAIL, USER_ROLE_ID);
 		LOGGER.info("Target user: " + target);
 		
 		//4. do the service method call
@@ -133,7 +134,7 @@ public class RequestHelper {
 			
 			resp.setStatus(200);
 			LOGGER.info("New user info: " + target);
-		}else {
+		}else{
 			//if userId is 0, that means that request was successful but no new resource was made! (status code of 204)
 			resp.setStatus(204, "Failed to add account in RequestHelper");
 			pw.println("Sorry, system failure. Please try again later.");
