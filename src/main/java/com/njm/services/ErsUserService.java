@@ -13,12 +13,7 @@ public interface ErsUserService {
 	
 	int registerUser(ERS_USERS user);
 	
-	boolean loginUser(String ERS_USERNAME, String ERS_PASSWORD, int ERS_USERS_ID);
-
-	boolean loginUser(int parseInt, String string);
-
 	boolean loginUser(String eRS_USERNAME, String eRS_PASSWORD);
 
-	ERS_USERS getUserByUsername(String value);
-
+	ERS_USERS getUserByUsername(String string);
 }

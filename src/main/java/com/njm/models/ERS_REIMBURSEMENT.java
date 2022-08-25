@@ -7,11 +7,11 @@ import java.time.LocalDate;
 public class ERS_REIMBURSEMENT {
 
 	private int REIMB_ID;
-	private int REIMB_AMOUNT;
+	private double REIMB_AMOUNT;
 	private LocalDate REIMB_SUBMITTED;
 	private LocalDate REIMB_RESOLVED;
 	private String REIMB_DESCRIPTION;
-	private Blob REIMB_RECEIPT;
+	private String REIMB_RECEIPT;
 	private int REIMB_AUTHOR;
 	private int REIMB_RESOLVER;
 	private int REIMB_STATUS_ID;
@@ -23,7 +23,7 @@ public class ERS_REIMBURSEMENT {
 	}
 
 	public ERS_REIMBURSEMENT(int rEIMB_ID, int rEIMB_AMOUNT, LocalDate rEIMB_SUBMITTED, LocalDate rEIMB_RESOLVED,
-			String rEIMB_DESCRIPTION, Blob rEIMB_RECEIPT, int rEIMB_AUTHOR, int rEIMB_RESOLVER, int rEIMB_STATUS_ID,
+			String rEIMB_DESCRIPTION, String rEIMB_RECEIPT, int rEIMB_AUTHOR, int rEIMB_RESOLVER, int rEIMB_STATUS_ID,
 			int rEIMB_TYPE_ID) {
 		super();
 		REIMB_ID = rEIMB_ID;
@@ -40,7 +40,7 @@ public class ERS_REIMBURSEMENT {
 
 	// Without REIMBURSEMENT_ID
 	public ERS_REIMBURSEMENT(int rEIMB_AMOUNT, LocalDate rEIMB_SUBMITTED, LocalDate rEIMB_RESOLVED,
-			String rEIMB_DESCRIPTION, Blob rEIMB_RECEIPT, int rEIMB_AUTHOR, int rEIMB_RESOLVER, int rEIMB_STATUS_ID,
+			String rEIMB_DESCRIPTION, String rEIMB_RECEIPT, int rEIMB_AUTHOR, int rEIMB_RESOLVER, int rEIMB_STATUS_ID,
 			int rEIMB_TYPE_ID) {
 		super();
 		REIMB_AMOUNT = rEIMB_AMOUNT;
@@ -62,11 +62,11 @@ public class ERS_REIMBURSEMENT {
 		REIMB_ID = rEIMB_ID;
 	}
 
-	public int getREIMB_AMOUNT() {
+	public double getREIMB_AMOUNT() {
 		return REIMB_AMOUNT;
 	}
 
-	public void setREIMB_AMOUNT(int rEIMB_AMOUNT) {
+	public void setREIMB_AMOUNT(double rEIMB_AMOUNT) {
 		REIMB_AMOUNT = rEIMB_AMOUNT;
 	}
 
@@ -76,6 +76,7 @@ public class ERS_REIMBURSEMENT {
 
 	public void setREIMB_SUBMITTED(LocalDate rEIMB_SUBMITTED) {
 		REIMB_SUBMITTED = rEIMB_SUBMITTED;
+	
 	}
 
 	public LocalDate getREIMB_RESOLVED() {
@@ -94,11 +95,11 @@ public class ERS_REIMBURSEMENT {
 		REIMB_DESCRIPTION = rEIMB_DESCRIPTION;
 	}
 
-	public Blob getREIMB_RECEIPT() {
+	public String getREIMB_RECEIPT() {
 		return REIMB_RECEIPT;
 	}
 
-	public void setREIMB_RECEIPT(Blob rEIMB_RECEIPT) {
+	public void setREIMB_RECEIPT(String rEIMB_RECEIPT) {
 		REIMB_RECEIPT = rEIMB_RECEIPT;
 	}
 
@@ -130,8 +131,8 @@ public class ERS_REIMBURSEMENT {
 		return REIMB_TYPE_ID;
 	}
 
-	public void setREIMB_TYPE_ID(int rEIMB_TYPE_ID) {
-		REIMB_TYPE_ID = rEIMB_TYPE_ID;
+	public void setREIMB_TYPE_ID(int string) {
+		REIMB_TYPE_ID = string;
 	}
 
 	@Override

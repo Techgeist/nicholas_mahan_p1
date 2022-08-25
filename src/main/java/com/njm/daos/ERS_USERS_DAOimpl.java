@@ -67,29 +67,39 @@ public class ERS_USERS_DAOimpl implements ERS_USERS_DAO {
 	}
 
 	@Override
-	public ERS_USERS getByid(int ERS_USERS_ID) {
-		LOGGER.info("In ERS_USERS_DAOimpl - retrieving user by id: " + ERS_USERS_ID);
-
-		ERS_USERS user = new ERS_USERS();
-		try (Connection conn = ERS_JDBC_CONNECTION_UTIL.establishComms()) {
-			String sql = "select * from ers_users where ers_user_id = ?";
+	public ERS_USERS selectUserByUsername(String ERS_USERNAME) {
+		LOGGER.info("In UserDaoImpl - selectUserByUsername() started. Searching username: " + ERS_USERNAME);
+		ERS_USERS target = new ERS_USERS();
+		
+		//1. open my JDBC connection
+		try(Connection conn = ERS_JDBC_CONNECTION_UTIL.establishComms()){
+			//2. Prepare our SQL statement
+			String sql = "select * from ers_users where ers_username = ?";
+			
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(0, ERS_USERS_ID);
-
-			// execute querry and get results from result set
+			ps.setString(1, ERS_USERNAME);
+			
+			//3. Execute that statement
 			ResultSet rs = ps.executeQuery();
-
-			if (rs.next())
-				;
-			// set all data into my user object here
-			user.setERS_USERS_ID(ERS_USERS_ID);
-
-		} catch (SQLException e) {
-			LOGGER.warn(null);
-
+			
+			while(rs.next()) {
+				//here, we will be setting the resultset data to our User object called 'target'
+				target.setERS_USERS_ID(rs.getInt("ers_user_id"));
+				target.setERS_USERNAME(ERS_USERNAME);
+				target.setERS_PASSWORD(rs.getString("ers_password"));
+				target.setUSER_FIRST_NAME(rs.getString("user_first_name"));
+				target.setUSER_LAST_NAME(rs.getString("user_last_name"));
+				target.setUSER_EMAIL(rs.getString("user_email"));
+				target.setUSER_ROLE_ID(rs.getInt("user_role_id"));
+			}
+			
+		}catch(SQLException e) {
+			LOGGER.warn("Unable to find user: " + e);
 		}
-		LOGGER.info("Found user - " + user);
-		return user;
+		
+		//4. return the newly created ID number of the user
+		LOGGER.info("In UserDaoImpl - selectUserByUsername() ended. Found user: " + target);
+		return target;
 	}
 
 	@Override
@@ -121,12 +131,6 @@ public class ERS_USERS_DAOimpl implements ERS_USERS_DAO {
 		
 	}
 
-
-	@Override
-	public ERS_USERS selectUserByUsername(String ERS_USERNAME) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 }
 

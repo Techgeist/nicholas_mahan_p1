@@ -47,7 +47,7 @@ public class FrontController extends HttpServlet {
 			RequestHelper.processLogin(req, resp);
 			break;
 		case "reimbursements/new":
-			LOGGER.info("User is trying to make a new bank account...");
+			LOGGER.info("User is trying to make a new reimbursement...");
 			RequestHelper.processCreateNewReimbursement(req, resp);
 			break;
 		default:

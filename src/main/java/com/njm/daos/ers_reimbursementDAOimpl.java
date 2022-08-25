@@ -19,20 +19,25 @@ public class ers_reimbursementDAOimpl implements ers_reimbursementDAO {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ERS_USERS_DAOimpl.class);
 
 	@Override
-	public int createReimbursement(ERS_REIMBURSEMENT ERS_REIMBURSEMENT, int ERS_USERS_ID) {
+	public int insertReimbursement(ERS_REIMBURSEMENT ERS_REIMBURSEMENT, int ERS_USERS_ID) {
 		LOGGER.info("In ers_reimbursementDAOImpl - createReimbursement() started. Adding account: " + ERS_REIMBURSEMENT);
 		int targetId = 0;
 		//1. open my JDBC connection
-		try(Connection conn = ERS_JDBC_CONNECTION_UTIL.establishComms()){
+		try(Connection conn = ERS_JDBC_CONNECTION_UTIL.establishComms()) {
 			//2. Prepare our SQL statement
-			String sql = "INSERT INTO ers_reimbursement(reimb_type_id, reimb_status_id, reimb_amount , reimb_submitted ) VALUES(1,1,?,?)";
+			String sql = "INSERT INTO ers_reimbursement(reimb_id,reimb_amount,reimb_submitted,reimb_resolved,reimb_descrption,reimb_reciept,reimb_author,reimb_resolver,reimb_status_id,reimb_type_id) VALUES(default,?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			ps.setInt(1, ERS_REIMBURSEMENT.getREIMB_TYPE_ID());
-			ps.setInt(2, ERS_REIMBURSEMENT.getREIMB_STATUS_ID());
-			ps.setDouble(3, ERS_REIMBURSEMENT.getREIMB_AMOUNT());
-			Date date = Date.valueOf(ERS_REIMBURSEMENT.getREIMB_SUBMITTED());
-			ps.setDate(4, date);
+//			ps.setInt(0, ERS_REIMBURSEMENT.getREIMB_ID());
+			ps.setDouble(1, ERS_REIMBURSEMENT.getREIMB_AMOUNT());
+			ps.setDate(2, Date.valueOf(ERS_REIMBURSEMENT.getREIMB_SUBMITTED()));
+			ps.setDate(3, Date.valueOf(ERS_REIMBURSEMENT.getREIMB_RESOLVED()));
+			ps.setString(4, ERS_REIMBURSEMENT.getREIMB_DESCRIPTION());
+			ps.setString(5,ERS_REIMBURSEMENT.getREIMB_RECEIPT());
+			ps.setInt(6, ERS_REIMBURSEMENT.getREIMB_AUTHOR());
+			ps.setInt(7,ERS_REIMBURSEMENT.getREIMB_RESOLVER());
+			ps.setInt(8, ERS_REIMBURSEMENT.getREIMB_STATUS_ID());
+			ps.setInt(9, ERS_REIMBURSEMENT.getREIMB_TYPE_ID());
 			//3. Execute that statement
 			ps.executeUpdate();
 			

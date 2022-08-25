@@ -23,9 +23,8 @@ public class ErsUserServiceImpl implements ErsUserService {
 	// and you can use any part of your code in any part of your application (aka
 	// modularization)
 	private static ERS_USERS_DAO ERS_USERS_DAO = new ERS_USERS_DAOimpl();
-	
-	
-	public int registerUser(ERS_USERS  ERS_USERS) {
+
+	public int registerUser(ERS_USERS ERS_USERS) {
 		// 1. log this event into my log file
 		LOGGER.debug("In ErsUserServiceImpl - registerUser() started");
 
@@ -37,49 +36,44 @@ public class ErsUserServiceImpl implements ErsUserService {
 		return id;
 	}
 
-
 	@Override
 	public boolean loginUser(String ERS_USERNAME, String ERS_PASSWORD) {
-		//1. log event start
-			LOGGER.info("In UserServiceImpl - login() started. Credentials: Username=" + ERS_USERNAME + ", Password=" + ERS_PASSWORD);
-		
-		//2. make my DB call
+		// 1. log event start
+		LOGGER.info("In UserServiceImpl - login() started. Credentials: Username=" + ERS_USERNAME + ", Password="
+				+ ERS_PASSWORD);
+
+		// 2. make my DB call
 		ERS_USERS target = ERS_USERS_DAO.selectUserByUsername(ERS_USERNAME);
-		
-		//cinoare tge banes ti see uf tgus us a succesful match
-		if(ERS_USERNAME.equalsIgnoreCase(target.getERS_USERNAME()) && ERS_PASSWORD.equalsIgnoreCase(target.getERS_PASSWORD())) {
-			//3. log event end
+
+		// cinoare tge banes ti see uf tgus us a succesful match
+		if (ERS_USERNAME.equalsIgnoreCase(target.getERS_USERNAME())
+				&& ERS_PASSWORD.equalsIgnoreCase(target.getERS_PASSWORD())) {
+			// 3. log event end
 			LOGGER.info("In UserServiceImpl - login() ended. Credentials match!");
 			return true;
-		}else {
+		} else {
 			LOGGER.warn("login unsuccesful credentials do not match");
 		}
-		
+
 		LOGGER.info("In ErsUserServiceIMPL - LoginUser() ended");
-		
+
 		return false;
 	}
 
-
 	@Override
-	public boolean loginUser(String ERS_USERNAME, String ERS_PASSWORD, int ERS_USERS_ID) {
-		// TODO Auto-generated method stub
-		return false;
+	public ERS_USERS getUserByUsername(String ERS_USERNAME) {
+		// 1. log event start
+		LOGGER.info("In UserServiceImpl - getUserByUsername() started. Username: " + ERS_USERNAME);
+
+		// 2. make my DB call
+		ERS_USERS target = ERS_USERS_DAO.selectUserByUsername(ERS_USERNAME);
+
+		// 3. log event end
+		LOGGER.info("In UserServiceImpl - getUserByUsername() ended. Found user: " + target);
+
+		// 4. return data in return statement
+		return target;
 	}
 
-
-	@Override
-	public boolean loginUser(int parseInt, String string) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public ERS_USERS getUserByUsername(String value) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
+	
 }

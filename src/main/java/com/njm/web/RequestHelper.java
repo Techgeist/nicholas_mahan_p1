@@ -23,6 +23,8 @@ import com.njm.daos.ers_reimbursementDAOimpl;
 import com.njm.models.ERS_REIMBURSEMENT;
 import com.njm.models.ERS_USERS;
 import com.njm.services.ErsUserServiceImpl;
+import com.njm.services.reimbursementService;
+import com.njm.services.reimbursementServiceImpl;
 import com.njm.services.ErsUserService;
 
 public class RequestHelper {
@@ -32,7 +34,7 @@ public class RequestHelper {
 	// because we are making service method calls here, we need an instance of the
 	// UserService object
 	private static ErsUserService ErsUserService = new ErsUserServiceImpl();
-	private static ers_reimbursementDAO ReimbServ = new ers_reimbursementDAOimpl();
+	private static reimbursementService ReimbServ = new reimbursementServiceImpl(new ers_reimbursementDAOimpl());
 
 	// These methods will make the service call as well as create the dynamic
 	// response that is returning to the client
@@ -140,7 +142,7 @@ public class RequestHelper {
 			LOGGER.info("New user info: " + target);
 		}else{
 			//if userId is 0, that means that request was successful but no new resource was made! (status code of 204)
-			resp.setStatus(204, "Failed to add account in RequestHelper");
+			resp.setStatus(204, "Failed to add reimbursement in RequestHelper");
 			pw.println("Sorry, system failure. Please try again later.");
 		}
 		
@@ -264,7 +266,7 @@ public class RequestHelper {
 
 		/////////////
 		public static void processCreateNewReimbursement(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-			LOGGER.info("In RequestHelper - processCreateNewAccount() started");
+			LOGGER.info("In RequestHelper - processCreateNewReimbursement() started");
 			int targetId = 0;
 			// first I will need to check if the user is currently logged in by checking if
 			// there is a cookie present
@@ -281,7 +283,7 @@ public class RequestHelper {
 			
 			LOGGER.info("User information recieved from cookie: " + currentUser);
 			
-			//now that I got my current user, let's give them an account based on the info they provided in the request body
+			//now that I got my current user, let's give them a reimbursement account based on the info they provided in the request body
 			BufferedReader reader = req.getReader();
 			StringBuilder sb = new StringBuilder();
 
@@ -294,7 +296,7 @@ public class RequestHelper {
 
 			String body = sb.toString();
 
-			LOGGER.info("Request body for account registration is: " + body);
+			LOGGER.info("Request body for reimbursement registration is: " + body);
 
 			String[] info = body.replaceAll("\\{", "").replaceAll("\"", "").replaceAll("}", "").split(",");
 			List<String> values = new ArrayList<>();
@@ -308,30 +310,22 @@ public class RequestHelper {
 
 			LOGGER.info("User information extracted is: " + values.toString());
 			ERS_REIMBURSEMENT reimbursement = new ERS_REIMBURSEMENT();
-		
-//			reimbursement.setInt(REIMB_TYPE_ID(values.get(0)));
-//			reimbursement.setInt(REIMB_STATUS_ID(values.get(1)));
-//			reimbursement.setInt(Double.valueOf(values.get(2)));
-			
-			
-			
-			int REIMB_TYPE_ID = Integer.parseInt(values.get(0));
-			int REIMB_STATUS_ID = Integer.parseInt(values.get(1));
-			int REIMB_AMMOUNT = Integer.parseInt(values.get(2));
+//			reimbursement.setREIMB_ID(values.get(targetId));
+			reimbursement.setREIMB_AMOUNT(Double.valueOf(values.get(0)));		
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			reimbursement.setREIMB_SUBMITTED(LocalDate.parse(values.get(3), formatter));
+			reimbursement.setREIMB_SUBMITTED(LocalDate.parse(values.get(1), formatter));
+			DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			reimbursement.setREIMB_RESOLVED(LocalDate.parse(values.get(2), formatter2));
+			reimbursement.setREIMB_DESCRIPTION(values.get(3));
+			reimbursement.setREIMB_RECEIPT(values.get(4));
+			reimbursement.setREIMB_AUTHOR(Integer.parseInt(values.get(5)));
+			reimbursement.setREIMB_RESOLVER(Integer.parseInt(values.get(6)));
+			reimbursement.setREIMB_STATUS_ID(Integer.parseInt(values.get(7)));
+			reimbursement.setREIMB_TYPE_ID(Integer.parseInt(values.get(8)));
 			
-			
-			
-//			String ERS_USERNAME = values.get(0);
-//			String ERS_PASSWORD = values.get(1);
-//			String USER_FIRST_NAME = values.get(2);
-//			String USER_LAST_NAME = values.get(3);
-//			String USER_EMAIL = values.get(4);
-//			int USER_ROLE_ID = Integer.parseInt(values.get(5));
 			
 			// make the service method call
-			targetId = ReimbServ.createReimbursement(reimbursement, currentUser.getERS_USERS_ID());
+			targetId = ReimbServ.createNewReimbursement(reimbursement, currentUser.getERS_USERS_ID());
 			reimbursement.setREIMB_ID(targetId);
 			
 			PrintWriter pw = resp.getWriter();
@@ -356,12 +350,12 @@ public class RequestHelper {
 				pw.println(om.writeValueAsString(reimbursement));
 
 				resp.setStatus(200);
-				LOGGER.info("Account creation successful. New account id number: " + targetId);
+				LOGGER.info("Reimbursement creation successful. New Reimbursement id number: " + targetId);
 			} else {
 				resp.setStatus(401); // UNAUTHORIZED STATUS CODE = 401
 				pw.println("User has not been authorized to perform this operation. Please try again.");
 			}
-			LOGGER.info("In RequestHelper - processCreateNewAccount() ended");
+			LOGGER.info("In RequestHelper - processCreateNewReimbursement() ended");
 			
 		
 	}
