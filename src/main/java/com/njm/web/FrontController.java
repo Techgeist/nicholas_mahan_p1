@@ -46,7 +46,12 @@ public class FrontController extends HttpServlet {
 			LOGGER.info("User is trying to login to application using id and name...");
 			RequestHelper.processLogin(req, resp);
 			break;
+		case "reimbursements/new":
+			LOGGER.info("User is trying to make a new bank account...");
+			RequestHelper.processCreateNewReimbursement(req, resp);
+			break;
 		default:
+			LOGGER.warn("No path present: " + URI);
 			break;
 		}
 	}

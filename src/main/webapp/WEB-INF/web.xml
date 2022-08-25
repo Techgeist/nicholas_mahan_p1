@@ -17,6 +17,7 @@ redirect that request to this servlet! -->
 	<url-pattern>/register</url-pattern>
 	<url-pattern>/error</url-pattern>
 	<url-pattern>/login</url-pattern>
+	<url-pattern>/reimbursements/new</url-pattern>
 </servlet-mapping>
 
 <!-- Here at this error-page element, we are defining how to handle exceptions within this servlet -->

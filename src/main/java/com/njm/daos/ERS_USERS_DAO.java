@@ -13,6 +13,13 @@ public interface ERS_USERS_DAO {
 	//we will then use the user info found and compare that information with the user input that our client entered for this request
 	ERS_USERS getByid(int  eRS_USERS_ID);
 	
+	//READ
+	public ERS_USERS selectUserByUsername(String ERS_USERNAME);
+	
+	//UPDATE
+	public void updateUser(ERS_USERS ERS_USERS);
+	
+	//DELETE
 //	ERS_USERS getByName(String name);
 
 //	ERS_USERS read(int userId);

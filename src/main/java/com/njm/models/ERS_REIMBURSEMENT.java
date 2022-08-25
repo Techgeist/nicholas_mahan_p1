@@ -2,13 +2,14 @@ package com.njm.models;
 
 import java.sql.Blob;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 public class ERS_REIMBURSEMENT {
 
 	private int REIMB_ID;
 	private int REIMB_AMOUNT;
-	private Timestamp REIMB_SUBMITTED;
-	private Timestamp REIMB_RESOLVED;
+	private LocalDate REIMB_SUBMITTED;
+	private LocalDate REIMB_RESOLVED;
 	private String REIMB_DESCRIPTION;
 	private Blob REIMB_RECEIPT;
 	private int REIMB_AUTHOR;
@@ -21,7 +22,7 @@ public class ERS_REIMBURSEMENT {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ERS_REIMBURSEMENT(int rEIMB_ID, int rEIMB_AMOUNT, Timestamp rEIMB_SUBMITTED, Timestamp rEIMB_RESOLVED,
+	public ERS_REIMBURSEMENT(int rEIMB_ID, int rEIMB_AMOUNT, LocalDate rEIMB_SUBMITTED, LocalDate rEIMB_RESOLVED,
 			String rEIMB_DESCRIPTION, Blob rEIMB_RECEIPT, int rEIMB_AUTHOR, int rEIMB_RESOLVER, int rEIMB_STATUS_ID,
 			int rEIMB_TYPE_ID) {
 		super();
@@ -38,7 +39,7 @@ public class ERS_REIMBURSEMENT {
 	}
 
 	// Without REIMBURSEMENT_ID
-	public ERS_REIMBURSEMENT(int rEIMB_AMOUNT, Timestamp rEIMB_SUBMITTED, Timestamp rEIMB_RESOLVED,
+	public ERS_REIMBURSEMENT(int rEIMB_AMOUNT, LocalDate rEIMB_SUBMITTED, LocalDate rEIMB_RESOLVED,
 			String rEIMB_DESCRIPTION, Blob rEIMB_RECEIPT, int rEIMB_AUTHOR, int rEIMB_RESOLVER, int rEIMB_STATUS_ID,
 			int rEIMB_TYPE_ID) {
 		super();
@@ -69,19 +70,19 @@ public class ERS_REIMBURSEMENT {
 		REIMB_AMOUNT = rEIMB_AMOUNT;
 	}
 
-	public Timestamp getREIMB_SUBMITTED() {
+	public LocalDate getREIMB_SUBMITTED() {
 		return REIMB_SUBMITTED;
 	}
 
-	public void setREIMB_SUBMITTED(Timestamp rEIMB_SUBMITTED) {
+	public void setREIMB_SUBMITTED(LocalDate rEIMB_SUBMITTED) {
 		REIMB_SUBMITTED = rEIMB_SUBMITTED;
 	}
 
-	public Timestamp getREIMB_RESOLVED() {
+	public LocalDate getREIMB_RESOLVED() {
 		return REIMB_RESOLVED;
 	}
 
-	public void setREIMB_RESOLVED(Timestamp rEIMB_RESOLVED) {
+	public void setREIMB_RESOLVED(LocalDate rEIMB_RESOLVED) {
 		REIMB_RESOLVED = rEIMB_RESOLVED;
 	}
 

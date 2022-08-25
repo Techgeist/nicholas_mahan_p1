@@ -39,14 +39,17 @@ public class ErsUserServiceImpl implements ErsUserService {
 
 
 	@Override
-	public boolean loginUser(int eRS_USERS_ID, String eRS_USERNAME) {
-		LOGGER.info("In ErsUserServiceIMPL - LoginUser() started");
+	public boolean loginUser(String ERS_USERNAME, String ERS_PASSWORD) {
+		//1. log event start
+			LOGGER.info("In UserServiceImpl - login() started. Credentials: Username=" + ERS_USERNAME + ", Password=" + ERS_PASSWORD);
 		
-		ERS_USERS target = ERS_USERS_DAO.getByid(eRS_USERS_ID);
+		//2. make my DB call
+		ERS_USERS target = ERS_USERS_DAO.selectUserByUsername(ERS_USERNAME);
 		
 		//cinoare tge banes ti see uf tgus us a succesful match
-		if(target.getERS_USERS_ID() == eRS_USERS_ID && target.getERS_USERNAME().equals(eRS_USERNAME)) {
-			LOGGER.debug("Successful match - credentials are approved");
+		if(ERS_USERNAME.equalsIgnoreCase(target.getERS_USERNAME()) && ERS_PASSWORD.equalsIgnoreCase(target.getERS_PASSWORD())) {
+			//3. log event end
+			LOGGER.info("In UserServiceImpl - login() ended. Credentials match!");
 			return true;
 		}else {
 			LOGGER.warn("login unsuccesful credentials do not match");
@@ -56,5 +59,27 @@ public class ErsUserServiceImpl implements ErsUserService {
 		
 		return false;
 	}
+
+
+	@Override
+	public boolean loginUser(String ERS_USERNAME, String ERS_PASSWORD, int ERS_USERS_ID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public boolean loginUser(int parseInt, String string) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public ERS_USERS getUserByUsername(String value) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

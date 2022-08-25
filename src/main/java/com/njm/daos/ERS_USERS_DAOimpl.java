@@ -91,6 +91,43 @@ public class ERS_USERS_DAOimpl implements ERS_USERS_DAO {
 		LOGGER.info("Found user - " + user);
 		return user;
 	}
+
+	@Override
+	public void updateUser(ERS_USERS ERS_USERS) {
+		LOGGER.info("In ERS_USERS_DAOimpl - updateUser() started. Updated user infor: " + ERS_USERS);
+		
+		//open JDBC connection
+		try (Connection conn = ERS_JDBC_CONNECTION_UTIL.establishComms()) {
+			//prepare our SQL statement
+			String sql = "update ers_users set ers_username=? ,ers_password= ?,user_first_name=?,user_last_name=?,user_email=?,user_role_id=? where ers_user_id =?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, ERS_USERS.getERS_USERNAME());
+			ps.setString(2, ERS_USERS.getERS_PASSWORD());
+			ps.setString(3, ERS_USERS.getUSER_FIRST_NAME());
+			ps.setString(4, ERS_USERS.getUSER_LAST_NAME());
+			ps.setString(5, ERS_USERS.getUSER_EMAIL());
+			ps.setInt(6, ERS_USERS.getUSER_ROLE_ID());
+			
+			//3. Execute statement
+			int isSuccessfulUpdate = ps.executeUpdate();
+			LOGGER.info("Successful update to DB: 1 for yes/0 for no" + isSuccessfulUpdate);
+		} catch (SQLException e) {
+			LOGGER.warn("unable to update user:" + e);
+			
+		}
+		
+		//return newly created ID number of the user
+		LOGGER.info("In UsersDAOimpl - updateUser() ended.");
+		
+	}
+
+
+	@Override
+	public ERS_USERS selectUserByUsername(String ERS_USERNAME) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
 
 //	@Override
