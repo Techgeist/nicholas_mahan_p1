@@ -134,11 +134,7 @@ public class ERS_USERS_DAOimpl implements ERS_USERS_DAO {
 	
 }
 
-//	@Override
-//	public ERS_USERS getByName(ERS name) {
-//		// if I have time I will come back to this -Azhya
-//		return null;
-//}
+
 
 // -------------- OLD CODE I WANT TO SAVE FOR POSSIBLE FUTURE REF	
 //	Connection conn;

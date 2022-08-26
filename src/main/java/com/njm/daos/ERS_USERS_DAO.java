@@ -7,14 +7,10 @@ public interface ERS_USERS_DAO {
 	//here we are making our CRUD methods CREATE READ UPDATE DELETE
 	
 	//please not that the return types can be whatever u think u needs for your project
-	int create(ERS_USERS ERS_USERS);
-	
-	//here since I am logging in with an existing user I should be able to retrieve that user by ID or name
-	//we will then use the user info found and compare that information with the user input that our client entered for this request
-
-	
+	public int create(ERS_USERS ERS_USERS);
+		
 	//READ
-	ERS_USERS selectUserByUsername(String ERS_USERNAME);
+	public ERS_USERS selectUserByUsername(String ERS_USERNAME);
 	
 	
 	//UPDATE
@@ -24,11 +20,4 @@ public interface ERS_USERS_DAO {
 	
 	//DELETE
 //	ERS_USERS getByName(String name);
-
-//	ERS_USERS read(int userId);
-//	
-//	boolean update(int userId, String email);
-//	
-//	boolean delete(int userId, String email);
-	
 }

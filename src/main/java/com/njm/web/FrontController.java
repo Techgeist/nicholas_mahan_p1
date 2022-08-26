@@ -56,4 +56,22 @@ public class FrontController extends HttpServlet {
 		}
 	}
 
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//we use URI rewriting to better manage the naviagation of our HTTP requests as they come to the FrontController
+		final String URI = req.getRequestURI().replace("/ERSFrontController/", "");
+		
+		LOGGER.info("User trying to access endpoint: " + URI);
+		
+		switch(URI) {
+			case "users":
+				LOGGER.info("User is searching by username...");
+				RequestHelper.processSearchByUsername(req, resp);
+				break;
+			default:
+				LOGGER.warn("No path present: " + URI);
+				break;
+		}
+	}
+
 }

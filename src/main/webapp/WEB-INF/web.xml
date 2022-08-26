@@ -18,6 +18,9 @@ redirect that request to this servlet! -->
 	<url-pattern>/error</url-pattern>
 	<url-pattern>/login</url-pattern>
 	<url-pattern>/reimbursements/new</url-pattern>
+	<url-pattern>/reimbursements/update</url-pattern>
+	<url-pattern>/users</url-pattern>
+	<url-pattern>/users/*</url-pattern>
 </servlet-mapping>
 
 <!-- Here at this error-page element, we are defining how to handle exceptions within this servlet -->

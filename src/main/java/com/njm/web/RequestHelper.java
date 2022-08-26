@@ -360,4 +360,112 @@ public class RequestHelper {
 		
 	}
 
+		public static void processSearchByUsername(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+			String ERS_USERNAME = req.getParameter("username");
+			
+			//making the service call
+			ERS_USERS target = ErsUserService.getUserByUsername(ERS_USERNAME);
+			PrintWriter pw = resp.getWriter();
+			ObjectMapper om = new ObjectMapper();
+			
+			if(target != null) {
+				//return a good response
+				resp.setContentType("application/json");
+				resp.setStatus(200);
+				
+				
+				pw.println(om.writeValueAsString(target));
+				LOGGER.info("Search by username complete");
+				
+			}else {
+				//404 - resource not found
+				resp.setStatus(404);
+				pw.println("Sorry, no user by that given username exists.");
+				
+			}
+		}
+//		public static void processUpdateReimbursement(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+//		LOGGER.info("In RequestHelper - processUpdateReimbursement() started");
+//		int targetId = 0;
+//		// first I will need to check if the user is currently logged in by checking if
+//		// there is a cookie present
+//		ERS_USERS currentUser = new ERS_USERS();
+//		Cookie[] cookies = req.getCookies();
+//		if (cookies != null) {
+//			for (Cookie cookie : cookies) {
+//				if (cookie.getName().equals("Current-User")) {
+//					LOGGER.debug("Current logged in user is: " + cookie.getValue());
+//					currentUser = ErsUserService.getUserByUsername(cookie.getValue());
+//				}
+//			}
+//		}
+//		
+//		LOGGER.info("User information recieved from cookie: " + currentUser);
+//		
+//		//now that I got my current user, let's give them a reimbursement account based on the info they provided in the request body
+//		BufferedReader reader = req.getReader();
+//		StringBuilder sb = new StringBuilder();
+//
+//		String line = reader.readLine();
+//
+//		while (line != null) {
+//			sb.append(line);
+//			line = reader.readLine();
+//		}
+//
+//		String body = sb.toString();
+//
+//		LOGGER.info("Request body for reimbursement update is: " + body);
+//
+//		String[] info = body.replaceAll("\\{", "").replaceAll("\"", "").replaceAll("}", "").split(",");
+//		List<String> values = new ArrayList<>();
+//
+//		for (String pair : info) {
+//			LOGGER.info("Original body K/V pair: " + pair.trim());
+//			String valOnly = pair.substring(pair.indexOf(":") + 1).trim();
+//			LOGGER.info("Going into values arraylist --> " + valOnly);
+//			values.add(valOnly);
+//		}
+//
+//		LOGGER.info("User information extracted is: " + values.toString());
+//		ERS_REIMBURSEMENT reimbursement = new ERS_REIMBURSEMENT();
+//		reimbursement.setREIMB_STATUS_ID(Integer.parseInt(values.get(7)));
+//
+//		
+//		
+//		// make the service method call
+//		targetId = ReimbServ.updateReimbursement(reimbursement, currentUser.getERS_USERS_ID());
+//		reimbursement.setREIMB_ID(targetId);
+//		
+//		PrintWriter pw = resp.getWriter();
+//		ObjectMapper om = new ObjectMapper();
+//
+//		// create the response
+//		if (targetId != 0) {
+//			resp.setContentType("application/json");
+//			resp.setStatus(200);
+//
+//			// now that we have a successfully logged in user, we must keep track on their
+//			// session requests
+//			// therefore we will be adding a HTTP cookie as a response header
+//
+//			// This cookie can then be used with future, subquent requests as it will hold
+//			// the user's information within its
+//			// header info
+//			//User target = userService.getUserByUsername(values.get(0));
+//			//resp.addCookie(new Cookie("Current-User", target.getUsername()));
+//
+//			// adding JSON to response
+//			pw.println(om.writeValueAsString(reimbursement));
+//
+//			resp.setStatus(200);
+//			LOGGER.info("Reimbursement creation successful. New Reimbursement id number: " + targetId);
+//		} else {
+//			resp.setStatus(401); // UNAUTHORIZED STATUS CODE = 401
+//			pw.println("User has not been authorized to perform this operation. Please try again.");
+//		}
+//		LOGGER.info("In RequestHelper - processUpdateReimbursement() ended");
+//		
+//	
 }
+
